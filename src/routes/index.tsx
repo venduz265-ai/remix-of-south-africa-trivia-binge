@@ -103,6 +103,9 @@ function Index() {
 
   function answer(choice: number) {
     if (selected !== null) return;
+    coinSound.current ??= new Audio(moneySoundAsset.url);
+    coinSound.current.currentTime = 0;
+    void coinSound.current.play().catch(() => {});
     setSelected(choice);
     setTotal((t) => t + PRIZE_PER_ANSWER);
     setCoinKey((k) => k + 1);
