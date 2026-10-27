@@ -128,7 +128,7 @@ function Index() {
   const [coinKey, setCoinKey] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const question = QUESTIONS[index];
+  const question = QUESTIONS[index]!;
 
   function start() {
     if (timer.current) clearTimeout(timer.current);
