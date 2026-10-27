@@ -4,32 +4,34 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "South Africa Quiz — The Netflix-Style Game" },
+      { title: "Netflix PAY — South Africa Rewards Quiz" },
       {
         name: "description",
         content:
-          "An interactive South Africa general knowledge quiz in Netflix colors. Win $200 for every answer — fictional money, just for fun.",
+          "You've been selected for our rewards program! Answer 5 questions about South Africa and win $200 — fictional money, just for fun.",
       },
-      { property: "og:title", content: "South Africa Quiz — The Netflix-Style Game" },
+      { property: "og:title", content: "Netflix PAY — South Africa Rewards Quiz" },
       {
         property: "og:description",
         content:
-          "Netflix-style quiz about South Africa. Every answer wins $200 — fictional money, just for fun.",
+          "You've been selected for our rewards program! Answer 5 questions and win $200 — fictional money, just for fun.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "South Africa Quiz — The Netflix-Style Game" },
+      { name: "twitter:title", content: "Netflix PAY — South Africa Rewards Quiz" },
       {
         name: "twitter:description",
         content:
-          "Netflix-style quiz about South Africa. Every answer wins $200 — fictional money, just for fun.",
+          "You've been selected for our rewards program! Answer 5 questions and win $200 — fictional money, just for fun.",
       },
     ],
   }),
   component: Index,
 });
 
-const PRIZE_PER_ANSWER = 200;
+const TOTAL_REWARD = 200;
+const QUESTIONS_PER_GAME = 5;
+const PRIZE_PER_ANSWER = TOTAL_REWARD / QUESTIONS_PER_GAME;
 
 type Question = {
   q: string;
@@ -64,52 +66,10 @@ const QUESTIONS: Question[] = [
     fact: "On 27 April 1994, all adults could vote for the first time — Nelson Mandela became president.",
   },
   {
-    q: "Which famous game reserve is the largest national park in South Africa?",
-    options: ["Serengeti", "Kruger National Park", "Masai Mara", "Etosha"],
-    answer: 1,
-    fact: "Kruger National Park covers nearly 20,000 km² — about the size of Wales.",
-  },
-  {
-    q: "How many official languages does South Africa have?",
-    options: ["4", "8", "11", "12"],
-    answer: 3,
-    fact: "South African Sign Language became the 12th official language in 2023.",
-  },
-  {
     q: "Which iconic flat-topped mountain overlooks Cape Town?",
     options: ["Devil's Peak", "Lion's Head", "Table Mountain", "Signal Hill"],
     answer: 2,
     fact: "Table Mountain's plateau stretches about 3 km from side to side.",
-  },
-  {
-    q: "In 2010, South Africa became the first African country to host which event?",
-    options: ["The Olympic Games", "The FIFA World Cup", "The Rugby World Cup", "Expo"],
-    answer: 1,
-    fact: "Spain won the 2010 FIFA World Cup final in Johannesburg.",
-  },
-  {
-    q: "What is the name of the vast sandy basin that covers much of the Northern Cape?",
-    options: ["The Namib", "The Sahara", "The Kalahari", "The Karoo"],
-    answer: 2,
-    fact: "The Kalahari spans South Africa, Botswana and Namibia.",
-  },
-  {
-    q: "Which country is completely surrounded by South Africa?",
-    options: ["Eswatini", "Mozambique", "Lesotho", "Zimbabwe"],
-    answer: 2,
-    fact: "The Kingdom of Lesotho is one of only three countries in the world entirely enclaved by another.",
-  },
-  {
-    q: "Which South African river is the longest in the country?",
-    options: ["Limpopo River", "Orange River", "Vaal River", "Tugela River"],
-    answer: 1,
-    fact: "The Orange River runs about 2,200 km from the Drakensberg to the Atlantic.",
-  },
-  {
-    q: "Which township near Johannesburg is famous for the 1976 student uprising?",
-    options: ["Khayelitsha", "Soweto", "Mamelodi", "Gugulethu"],
-    answer: 1,
-    fact: "Soweto — 'South Western Townships' — is now home to roughly 1.3 million people.",
   },
 ];
 
@@ -177,7 +137,6 @@ function Index() {
           <GameOver
             total={total}
             correctCount={correctCount}
-            questionCount={QUESTIONS.length}
             onRestart={start}
           />
         )}
@@ -199,8 +158,8 @@ function Header({
 }) {
   return (
     <header className="flex items-center justify-between px-5 py-5 sm:px-8">
-      <span className="font-display text-2xl tracking-wide text-primary text-glow">
-        SA QUIZ
+      <span className="font-display text-2xl tracking-wide text-foreground">
+        NETFLIX <span className="text-primary text-glow">PAY</span>
       </span>
       {showBalance && (
         <div className="relative flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-1.5">
@@ -229,23 +188,23 @@ function Intro({ onStart }: { onStart: () => void }) {
   return (
     <section className="anim-fade-up text-center">
       <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-        A general knowledge game
+        Rewards program
       </p>
       <h1 className="font-display mt-3 text-6xl leading-none tracking-wide text-foreground sm:text-8xl">
-        SOUTH
-        <br />
-        <span className="text-primary text-glow">AFRICA</span>
+        NETFLIX <span className="text-primary text-glow">PAY</span>
       </h1>
-      <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-        {QUESTIONS.length} questions about the Rainbow Nation. Every answer earns
-        you {formatMoney(PRIZE_PER_ANSWER)} — right or wrong. How much can you take
-        home?
+      <p className="mx-auto mt-5 max-w-md text-base font-medium text-foreground">
+        You've been selected to participate in our rewards program!
+      </p>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+        Answer {QUESTIONS_PER_GAME} questions about South Africa and win{" "}
+        {formatMoney(TOTAL_REWARD)} — right or wrong, the reward is yours.
       </p>
       <button
         onClick={onStart}
         className="mt-9 inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 font-display text-2xl tracking-widest text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
       >
-        START PLAYING
+        CLAIM YOUR REWARD
       </button>
     </section>
   );
@@ -332,18 +291,16 @@ function QuestionCard({
 function GameOver({
   total,
   correctCount,
-  questionCount,
   onRestart,
 }: {
   total: number;
   correctCount: number;
-  questionCount: number;
   onRestart: () => void;
 }) {
   return (
     <section className="anim-pop-in text-center">
       <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-        That's a wrap
+        Rewards program
       </p>
       <h1 className="font-display mt-3 text-6xl leading-none tracking-wide text-foreground sm:text-7xl">
         YOU'VE WON
@@ -352,8 +309,9 @@ function GameOver({
         {formatMoney(total)}
       </p>
       <p className="mx-auto mt-5 max-w-md text-sm text-muted-foreground">
-        You answered {correctCount} out of {questionCount} correctly — but every
-        answer paid off. {formatMoney(PRIZE_PER_ANSWER)} per answer, right or wrong.
+        You answered {correctCount} out of {QUESTIONS.length} correctly — and your{" "}
+        {formatMoney(TOTAL_REWARD)} reward is guaranteed. Right or wrong, every
+        answer paid.
       </p>
       <button
         onClick={onRestart}
