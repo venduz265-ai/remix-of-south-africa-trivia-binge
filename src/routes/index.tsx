@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import moneySoundAsset from "@/assets/money-sound.mp3.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,6 +87,7 @@ function Index() {
   const [total, setTotal] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [coinKey, setCoinKey] = useState(0);
+  const coinSound = useRef<HTMLAudioElement | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const question = QUESTIONS[index]!;
