@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/reward")({
@@ -28,12 +29,9 @@ export const Route = createFileRoute("/reward")({
   component: RewardPage,
 });
 
-/**
- * Paste the video embed URL here when you send it
- * (e.g. "https://www.youtube.com/embed/VIDEO_ID").
- * While it is empty, a placeholder player is shown.
- */
-const VIDEO_EMBED_URL = "";
+const PLAYER_ID = "vid-6ae12f8346271b50ab04fb93";
+const PLAYER_SCRIPT =
+  "https://scripts.converteai.net/2c9d46a6-300f-4410-a2af-1638345a4d90/players/6ae12f8346271b50ab04fb93/v4/player.js";
 const BALANCE = 200;
 
 const TESTIMONIALS = [
@@ -130,31 +128,24 @@ function RewardPage() {
   );
 }
 
+const VTURB_HTML = `<vturb-smartplayer id="${PLAYER_ID}" style="display: block; margin: 0 auto; width: 100%;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>`;
+
 function VideoPlayer() {
-  if (VIDEO_EMBED_URL) {
-    return (
-      <iframe
-        src={VIDEO_EMBED_URL}
-        title="How to claim your reward"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className="aspect-video w-full overflow-hidden rounded-xl border border-border bg-black"
-      />
-    );
-  }
+  useEffect(() => {
+    // Load the VTurb player script once; it finds the <vturb-smartplayer> element.
+    if (!document.querySelector('script[data-vturb-player="1"]')) {
+      const s = document.createElement("script");
+      s.src = PLAYER_SCRIPT;
+      s.async = true;
+      s.setAttribute("data-vturb-player", "1");
+      document.head.appendChild(s);
+    }
+  }, []);
+
   return (
-    <div className="flex aspect-video w-full flex-col items-center justify-center gap-4 rounded-xl border border-border bg-card text-center">
-      <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/40">
-        <svg viewBox="0 0 24 24" className="ml-1 h-7 w-7 fill-primary-foreground" aria-hidden>
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </span>
-      <p className="font-display text-xl tracking-widest text-muted-foreground">
-        VIDEO COMING SOON
-      </p>
-      <p className="max-w-xs text-xs text-muted-foreground">
-        The reward video will play here once it's added.
-      </p>
-    </div>
+    <div
+      className="w-full overflow-hidden rounded-xl border border-border bg-black"
+      dangerouslySetInnerHTML={{ __html: VTURB_HTML }}
+    />
   );
 }
