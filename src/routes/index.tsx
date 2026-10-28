@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import moneySoundAsset from "@/assets/money-sound.mp3.asset.json";
 
 export const Route = createFileRoute("/")({
