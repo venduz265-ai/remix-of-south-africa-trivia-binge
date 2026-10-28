@@ -318,12 +318,20 @@ function GameOver({
         {formatMoney(TOTAL_REWARD)} reward is guaranteed. Right or wrong, every
         answer paid.
       </p>
-      <button
-        onClick={onRestart}
-        className="mt-9 inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 font-display text-2xl tracking-widest text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
+      <Link
+        to="/reward"
+        className="anim-coin-pulse mt-9 inline-flex items-center justify-center rounded-md bg-primary px-10 py-4 font-display text-2xl tracking-widest text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
       >
-        PLAY AGAIN
-      </button>
+        CLICK HERE TO CLAIM
+      </Link>
+      <div className="mt-5">
+        <button
+          onClick={onRestart}
+          className="text-xs uppercase tracking-widest text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          Play again
+        </button>
+      </div>
     </section>
   );
 }
