@@ -137,7 +137,7 @@ function VideoPlayer() {
       const s = document.createElement("script");
       s.src = PLAYER_SCRIPT;
       s.async = true;
-      s.dataset.vturbPlayer = "1";
+      s.setAttribute("data-vturb-player", "1");
       document.head.appendChild(s);
     }
   }, []);
