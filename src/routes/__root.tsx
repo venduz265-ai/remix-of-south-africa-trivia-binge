@@ -124,6 +124,15 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=2110814099508793&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
@@ -133,6 +142,49 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    const pixelWindow = window as Window & {
+      fbq?: (...args: unknown[]) => void;
+      _fbq?: (...args: unknown[]) => void;
+    };
+
+    if (pixelWindow.fbq) return;
+
+    const n = ((...args: unknown[]) => {
+      if (n.callMethod) {
+        n.callMethod.apply(n, args);
+      } else {
+        n.queue.push(args);
+      }
+    }) as typeof pixelWindow.fbq & {
+      callMethod?: (...args: unknown[]) => void;
+      queue: unknown[][];
+      push: (...args: unknown[]) => void;
+      loaded: boolean;
+      version: string;
+    };
+
+    n.queue = [];
+    n.push = n;
+    n.loaded = true;
+    n.version = "2.0";
+    pixelWindow.fbq = n;
+    pixelWindow._fbq = n;
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://connect.facebook.net/en_US/fbevents.js";
+    const firstScript = document.getElementsByTagName("script")[0];
+    if (firstScript?.parentNode) {
+      firstScript.parentNode.insertBefore(script, firstScript);
+    } else {
+      document.head.appendChild(script);
+    }
+
+    n("init", "2110814099508793");
+    n("track", "PageView");
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
