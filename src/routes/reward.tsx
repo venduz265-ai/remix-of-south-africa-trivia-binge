@@ -29,9 +29,9 @@ export const Route = createFileRoute("/reward")({
   component: RewardPage,
 });
 
-const PLAYER_ID = "vid-6ae12f8346271b50ab04fb93";
+const PLAYER_ID = "vid-6afc38d408b8b00a0bfbbd28";
 const PLAYER_SCRIPT =
-  "https://scripts.converteai.net/2c9d46a6-300f-4410-a2af-1638345a4d90/players/6ae12f8346271b50ab04fb93/v4/player.js";
+  "https://scripts.converteai.net/1ce68445-e118-4cc2-99ca-0d579e119ca5/players/6afc38d408b8b00a0bfbbd28/v4/player.js";
 const BALANCE = 200;
 
 const TESTIMONIALS = [
