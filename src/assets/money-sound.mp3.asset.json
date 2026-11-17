@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "339314c5-50cb-4ad0-88bc-f7f3fb6ec321",
-  "project_id": "db482124-26cb-494d-bcc3-9256577e7298",
-  "url": "/__l5e/assets-v1/339314c5-50cb-4ad0-88bc-f7f3fb6ec321/money-sound.mp3",
-  "r2_key": "a/v1/db482124-26cb-494d-bcc3-9256577e7298/339314c5-50cb-4ad0-88bc-f7f3fb6ec321/money-sound.mp3",
-  "original_filename": "money-sound.mp3",
-  "size": 28349,
   "content_type": "audio/mpeg",
-  "created_at": "2026-10-27T22:42:39Z"
+  "created_at": "2026-10-27T22:42:39Z",
+  "original_filename": "money-sound.mp3",
+  "project_id": "4b281c43-0a45-4001-88cd-9196f672485c",
+  "r2_key": "a/v1/4b281c43-0a45-4001-88cd-9196f672485c/339314c5-50cb-4ad0-88bc-f7f3fb6ec321/money-sound.mp3",
+  "size": 28349,
+  "url": "/__l5e/assets-v1/339314c5-50cb-4ad0-88bc-f7f3fb6ec321/money-sound.mp3",
+  "version": 1
 }
